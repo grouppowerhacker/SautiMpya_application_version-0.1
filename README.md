@@ -27,42 +27,69 @@ Sauti Mpya provides instant help for anyone experiencing relationship concerns o
   - Google Fonts: Nunito Sans (headings) + Open Sans (body)
   - Mobile-first, responsive design
 
-## 🚀 Quick Deploy to Vercel
+## 📁 Project Structure
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=YOUR_GITHUB_REPO_URL)
-
-### Manual Deployment Steps:
-
-1. **Push to GitHub**
-   ```bash
-   git init
-   git add .
-   git commit -m "Initial commit: Sauti Mpya life-saving application"
-   git branch -M main
-   git remote add origin YOUR_GITHUB_REPO_URL
-   git push -u origin main
-   ```
-
-2. **Deploy on Vercel**
-   - Go to [vercel.com](https://vercel.com)
-   - Sign in with GitHub
-   - Click "New Project"
-   - Import your GitHub repository
-   - Click "Deploy" (no configuration needed!)
-
-Your application will be live in under 2 minutes.
+```
+Sauti-v2/
+├── src/
+│   ├── components/
+│   │   ├── EmergencyBar.tsx      # Emergency helpline display
+│   │   ├── Layout.tsx             # Main layout wrapper
+│   │   ├── Navigation.tsx         # Navigation menu
+│   │   └── QuickExit.tsx          # Quick exit button
+│   ├── pages/
+│   │   ├── Home.tsx               # Landing page
+│   │   ├── Chat.tsx               # AI chatbot interface
+│   │   ├── Assessment.tsx         # Safety assessment
+│   │   ├── SafetyPlan.tsx         # Safety plan builder
+│   │   ├── Resources.tsx          # Emergency helplines
+│   │   └── About.tsx              # Privacy & trust info
+│   ├── App.tsx                    # Main app component
+│   ├── main.tsx                   # Entry point
+│   └── index.css                  # Global styles
+├── public/                        # Static assets
+├── index.html                     # HTML template
+├── package.json                   # Dependencies
+├── tailwind.config.js             # Tailwind configuration
+├── tsconfig.json                  # TypeScript configuration
+└── vite.config.ts                 # Vite configuration
+```
 
 ## 🛠️ Local Development
 
+### Prerequisites
+- Node.js 18+ and npm
+
+### Installation
+
 ```bash
+# Clone the repository
+git clone https://github.com/YOUR_USERNAME/Sauti-v2.git
+cd Sauti-v2
+
 # Install dependencies
 npm install
 
 # Start development server
 npm run dev
+```
+
+The application will be available at `http://localhost:5173`
+
+### Available Scripts
+
+```bash
+# Start development server
+npm run dev
 
 # Build for production
 npm run build
+
+# Preview production build
+npm run preview
+
+# Run linter
+npm run lint
 
 # Type check
 npm run typecheck
@@ -71,33 +98,76 @@ npm run typecheck
 ## 📋 Tech Stack
 
 - **Frontend**: React 18 + TypeScript
-- **Routing**: React Router v6
+- **Routing**: React Router v7
 - **Styling**: Tailwind CSS
 - **PDF Generation**: jsPDF
 - **Icons**: Lucide React
+- **Backend**: Supabase (optional, for future features)
 - **Build Tool**: Vite
 - **Hosting**: Vercel (recommended)
+
+## 🚀 Deployment
+
+### Deploy to Vercel (Recommended)
+
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/YOUR_USERNAME/Sauti-v2)
+
+#### Manual Deployment Steps:
+
+1. **Push to GitHub**
+   ```bash
+   git init
+   git add .
+   git commit -m "Initial commit: Sauti Mpya life-saving application"
+   git branch -M main
+   git remote add origin https://github.com/YOUR_USERNAME/Sauti-v2.git
+   git push -u origin main
+   ```
+
+2. **Deploy on Vercel**
+   - Go to [vercel.com](https://vercel.com)
+   - Sign in with GitHub
+   - Click "New Project"
+   - Import your GitHub repository
+   - Configure build settings (Vite preset is auto-detected)
+   - Click "Deploy"
+
+Your application will be live in under 2 minutes!
+
+### Deploy to Netlify
+
+```bash
+# Install Netlify CLI
+npm install -g netlify-cli
+
+# Build the project
+npm run build
+
+# Deploy
+netlify deploy --prod
+```
 
 ## 🔒 Privacy & Security
 
 - **No authentication** - fully anonymous access
-- **No database** - zero data persistence
+- **No database** - zero data persistence (client-side only)
 - **No tracking** - no cookies, no analytics, no localStorage
 - **QUICK EXIT** - instant browser history clearing
 - **Client-side only** - all processing happens in the browser
+- **Open source** - transparent and auditable code
 
 ## 🌍 Supported Countries
 
 Emergency helplines available for:
-- Kenya: 1195
-- Nigeria: 0800 033 3333
-- South Africa: 0800 428 428
-- Ghana: 0800 800 800
-- Uganda: 0800 200 600
-- Rwanda: 3512
-- Tanzania: 116
-- Zambia: 933
-- Zimbabwe: 0712 763 772
+- **Kenya**: 1195
+- **Nigeria**: 0800 033 3333
+- **South Africa**: 0800 428 428
+- **Ghana**: 0800 800 800
+- **Uganda**: 0800 200 600
+- **Rwanda**: 3512
+- **Tanzania**: 116
+- **Zambia**: 933
+- **Zimbabwe**: 0712 763 772
 
 ## 🎯 Assessment Features
 
@@ -143,6 +213,15 @@ This is a life-saving tool. Contributions welcome:
 - Translation support (future)
 - Accessibility improvements
 - Security enhancements
+- Bug fixes and optimizations
+
+### How to Contribute
+
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add some amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
 
 ## ⚠️ Important Notice
 
@@ -156,8 +235,12 @@ If you are in immediate danger:
 
 MIT License - Use freely to save lives
 
+## 👥 Authors
+
+Built with urgency and compassion to serve survivors across Africa.
+
 ---
 
-**Built with urgency and compassion to serve survivors across Africa.**
+**"New Voice. New Beginning."**
 
-*"New Voice. New Beginning."*
+*Your safety matters. Your voice matters. You are not alone.*
