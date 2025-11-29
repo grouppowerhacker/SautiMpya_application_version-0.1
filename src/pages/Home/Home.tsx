@@ -1,7 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { MessageCircle, ClipboardCheck, Shield, Heart, Users, Phone, BookOpen } from 'lucide-react';
-import { EmergencyContacts } from '@components/sections/emergency-contacts/EmergencyContacts';
 import { RiskAssessment } from '@components/sections/risk-assessment/RiskAssessment';
 import { useAuth } from '@contexts/AuthContext';
 
@@ -105,6 +104,18 @@ export function Home() {
                 <p className="text-gray-600 text-center text-sm leading-relaxed">
                   {action.description}
                 </p>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Quick Risk Assessment */}
+      <section className="py-12 md:py-16 bg-white">
+        <div className="max-w-4xl mx-auto px-4">
+          <RiskAssessment />
+        </div>
+      </section>
 
       {/* Safety Message */}
       <section className="py-12 md:py-16 bg-gradient-to-r from-[#2B9EB3] to-[#1E6A8C] text-white">
