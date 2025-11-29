@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const RiskAssessment: React.FC = () => {
+export const RiskAssessment: React.FC = () => {
     const [answers, setAnswers] = useState<{ [key: number]: string }>({});
     const [showResults, setShowResults] = useState(false);
 
@@ -104,4 +104,3 @@ const RiskAssessment: React.FC = () => {
     );
 };
 
-export default RiskAssessment;

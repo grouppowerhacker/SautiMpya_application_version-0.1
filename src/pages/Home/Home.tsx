@@ -1,8 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { MessageCircle, ClipboardCheck, Shield, Heart, Users, Phone, BookOpen } from 'lucide-react';
-import { EmergencyContacts } from '@components/sections/EmergencyContacts/EmergencyContacts';
-import { RiskAssessment } from '@components/sections/RiskAssessment/RiskAssessment';
+import { EmergencyContacts } from '@components/sections/emergency-contacts/EmergencyContacts';
+import { RiskAssessment } from '@components/sections/risk-assessment/RiskAssessment';
 
 export function Home() {
   const quickActions = [

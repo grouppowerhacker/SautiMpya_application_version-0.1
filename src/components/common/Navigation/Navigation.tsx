@@ -8,11 +8,11 @@ export function Navigation() {
 
   const links = [
     { to: '/', label: 'Home', icon: null },
+    { to: '/about', label: 'About', icon: Info },
     { to: '/chat', label: 'Chat Support', icon: MessageCircle },
     { to: '/assessment', label: 'Safety Check', icon: ClipboardCheck },
     { to: '/safety-plan', label: 'Safety Plan', icon: Shield },
     { to: '/resources', label: 'Resources', icon: Book },
-    { to: '/about', label: 'About', icon: Info },
   ];
 
   const handleEmergencyClick = () => {

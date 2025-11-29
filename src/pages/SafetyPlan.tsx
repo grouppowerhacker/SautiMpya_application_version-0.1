@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Download, Plus, Trash2 } from 'lucide-react';
+import { Download, Plus, Trash2, RefreshCw, ShieldAlert } from 'lucide-react';
 import jsPDF from 'jspdf';
 
 interface PlanSection {
@@ -8,14 +8,16 @@ interface PlanSection {
 }
 
 export function SafetyPlan() {
-  const [sections, setSections] = useState<PlanSection[]>([
+  const initialSections: PlanSection[] = [
     { title: 'Safe People to Contact', items: [''] },
     { title: 'Safe Places to Go', items: [''] },
     { title: 'Important Documents to Take', items: ['ID card', 'Birth certificates', 'Bank documents', 'Medical records'] },
     { title: 'Essential Items to Pack', items: ['Phone charger', 'Money', 'Medications', 'Keys', 'Clothes'] },
     { title: 'Signs That I Need to Leave Immediately', items: [''] },
     { title: 'My Code Word for Emergency', items: [''] },
-  ]);
+  ];
+
+  const [sections, setSections] = useState<PlanSection[]>(JSON.parse(JSON.stringify(initialSections)));
 
   const updateItem = (sectionIndex: number, itemIndex: number, value: string) => {
     const newSections = [...sections];
@@ -34,6 +36,12 @@ export function SafetyPlan() {
     if (newSections[sectionIndex].items.length > 1) {
       newSections[sectionIndex].items.splice(itemIndex, 1);
       setSections(newSections);
+    }
+  };
+
+  const resetPlan = () => {
+    if (window.confirm('Are you sure you want to clear all details? This cannot be undone.')) {
+      setSections(JSON.parse(JSON.stringify(initialSections)));
     }
   };
 
@@ -115,18 +123,40 @@ export function SafetyPlan() {
   return (
     <div className="max-w-4xl mx-auto px-4 py-8">
       <div className="bg-white rounded-lg shadow-lg p-8">
-        <div className="flex items-center justify-between mb-6">
+        <div className="flex flex-col md:flex-row md:items-center justify-between mb-6 gap-4">
           <div>
             <h1 className="text-3xl font-bold text-[#1E6A8C] mb-2">Personal Safety Plan</h1>
             <p className="text-gray-700">Create a plan to keep yourself safe. Fill in as much as you can.</p>
           </div>
-          <button
-            onClick={downloadPDF}
-            className="bg-[#2B9EB3] hover:bg-[#1E6A8C] text-white px-6 py-3 rounded-lg font-semibold flex items-center gap-2 transition-colors"
-          >
-            <Download size={20} />
-            Download PDF
-          </button>
+          <div className="flex gap-2">
+            <button
+              onClick={resetPlan}
+              className="bg-gray-100 hover:bg-gray-200 text-gray-700 px-4 py-3 rounded-lg font-semibold flex items-center gap-2 transition-colors"
+            >
+              <RefreshCw size={20} />
+              Clear
+            </button>
+            <button
+              onClick={downloadPDF}
+              className="bg-[#2B9EB3] hover:bg-[#1E6A8C] text-white px-6 py-3 rounded-lg font-semibold flex items-center gap-2 transition-colors"
+            >
+              <Download size={20} />
+              Download PDF
+            </button>
+          </div>
+        </div>
+
+        {/* Privacy Notice */}
+        <div className="bg-blue-50 border-l-4 border-blue-500 p-4 mb-8 flex items-start gap-3">
+          <ShieldAlert className="text-blue-600 flex-shrink-0 mt-1" />
+          <div>
+            <p className="font-bold text-blue-900">Your Privacy is Our Priority</p>
+            <p className="text-blue-800 text-sm mt-1">
+              We do not store any of the information you enter here.
+              Your safety plan is generated only on your device.
+              Once you leave or refresh this page, all data will be cleared permanently.
+            </p>
+          </div>
         </div>
 
         <div className="bg-amber-50 border-l-4 border-amber-500 p-4 mb-8">

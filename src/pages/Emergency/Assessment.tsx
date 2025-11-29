@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { AlertTriangle, CheckCircle, AlertCircle, Loader2 } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { analyzeAssessment } from '../services/groqService';
-import type { AssessmentAnswer, AssessmentAnalysis } from '../types/groq';
+import { analyzeAssessment } from '../../services/groqService';
+import type { AssessmentAnswer, AssessmentAnalysis } from '../../types/groq';
 
 interface Question {
   id: number;
