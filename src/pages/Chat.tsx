@@ -1,10 +1,8 @@
 import { useState, useRef, useEffect } from 'react';
 import { Send, Bot, User } from 'lucide-react';
-
-interface Message {
-  role: 'user' | 'assistant';
-  content: string;
-}
+import { sendChatMessage } from '../services/groqService';
+import { VoiceRecorder } from '../components/VoiceRecorder';
+import type { Message } from '../types/groq';
 
 export function Chat() {
   const [messages, setMessages] = useState<Message[]>([
@@ -25,63 +23,36 @@ export function Chat() {
     scrollToBottom();
   }, [messages]);
 
-  const analyzeRisk = (text: string): string => {
-    const lowerText = text.toLowerCase();
-    const highRiskWords = ['hit', 'hits', 'hitting', 'punch', 'kick', 'choke', 'strangle', 'weapon', 'knife', 'gun', 'kill', 'murder', 'rape', 'force'];
-    const mediumRiskWords = ['hurt', 'afraid', 'scared', 'fear', 'threaten', 'control', 'isolate', 'yell', 'scream', 'insult', 'slap', 'push', 'shove'];
+  const handleSend = async (messageText?: string) => {
+    const userMessage = messageText || input.trim();
+    if (!userMessage) return;
 
-    const hasHighRisk = highRiskWords.some(word => lowerText.includes(word));
-    const hasMediumRisk = mediumRiskWords.some(word => lowerText.includes(word));
-
-    if (hasHighRisk) return 'high';
-    if (hasMediumRisk) return 'medium';
-    return 'low';
-  };
-
-  const generateResponse = (userMessage: string): string => {
-    const riskLevel = analyzeRisk(userMessage);
-    const lowerMessage = userMessage.toLowerCase();
-
-    if (riskLevel === 'high') {
-      return "I'm very concerned about your safety. What you're describing sounds serious and dangerous. Please know that you don't deserve to be treated this way, and help is available. Would you like me to share emergency contact numbers for your country? If you're in immediate danger, please call emergency services or use the helpline numbers at the bottom of this page.";
-    }
-
-    if (riskLevel === 'medium') {
-      return "Thank you for sharing that with me. What you're experiencing sounds really difficult and you deserve to feel safe and respected. These behaviors can be warning signs of abuse. Would you be open to taking our safety assessment? It might help you understand your situation better. Remember, you have options and support is available.";
-    }
-
-    if (lowerMessage.includes('help') || lowerMessage.includes('what do i do') || lowerMessage.includes('what should i')) {
-      return "I'm here to support you. Here are some steps you can take: 1) Take our safety assessment to better understand your situation, 2) Create a safety plan, 3) Reach out to local helplines (you'll find numbers at the bottom of this page), 4) Talk to someone you trust. Would you like me to guide you through any of these?";
-    }
-
-    if (lowerMessage.includes('leave') || lowerMessage.includes('leaving')) {
-      return "Leaving an abusive situation is a brave step, and it's important to plan carefully for your safety. Our safety plan tool can help you prepare. Remember: leaving can be the most dangerous time, so having a plan is crucial. Would you like help creating a safety plan?";
-    }
-
-    if (lowerMessage.includes('fault') || lowerMessage.includes('blame') || lowerMessage.includes('my fault')) {
-      return "Please hear this: abuse is NEVER your fault. No matter what you did or didn't do, no one deserves to be hurt, controlled, or frightened. The person choosing to be abusive is responsible for their behavior, not you. You deserve to be treated with respect and kindness.";
-    }
-
-    if (lowerMessage.includes('children') || lowerMessage.includes('kids') || lowerMessage.includes('child')) {
-      return "I understand you're concerned about children in this situation. Children who witness abuse are affected by it, even if they're not directly harmed. Their safety and wellbeing matter too. If you're worried about a child's safety, please reach out to child protection services or the helplines at the bottom of this page.";
-    }
-
-    return "Thank you for sharing that with me. Your feelings are valid, and it takes courage to talk about these things. I'm here to listen without judgment. Would you like to tell me more, or would you prefer to explore our safety assessment or resources?";
-  };
-
-  const handleSend = async () => {
-    if (!input.trim()) return;
-
-    const userMessage = input.trim();
     setInput('');
-    setMessages(prev => [...prev, { role: 'user', content: userMessage }]);
+    const newUserMessage: Message = { role: 'user', content: userMessage };
+    setMessages(prev => [...prev, newUserMessage]);
     setIsLoading(true);
 
-    setTimeout(() => {
-      const response = generateResponse(userMessage);
+    try {
+      // Send all messages for context
+      const conversationHistory = [...messages, newUserMessage];
+      const response = await sendChatMessage(conversationHistory);
+
       setMessages(prev => [...prev, { role: 'assistant', content: response }]);
+    } catch (error) {
+      console.error('Chat error:', error);
+      setMessages(prev => [...prev, {
+        role: 'assistant',
+        content: "I'm having trouble connecting right now. Please try again in a moment. If you're in immediate danger, please call emergency services or use the helpline numbers at the bottom of this page."
+      }]);
+    } finally {
       setIsLoading(false);
-    }, 1000);
+    }
+  };
+
+  const handleVoiceTranscription = (text: string) => {
+    if (text.trim()) {
+      handleSend(text);
+    }
   };
 
   return (
@@ -137,17 +108,21 @@ export function Chat() {
         </div>
 
         <div className="border-t p-4">
-          <div className="flex gap-2">
+          <div className="flex gap-2 items-end">
+            <VoiceRecorder
+              onTranscription={handleVoiceTranscription}
+              disabled={isLoading}
+            />
             <input
               type="text"
               value={input}
               onChange={(e) => setInput(e.target.value)}
-              onKeyPress={(e) => e.key === 'Enter' && handleSend()}
+              onKeyPress={(e) => e.key === 'Enter' && !isLoading && handleSend()}
               placeholder="Type your message here..."
               className="flex-1 border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#2B9EB3]"
             />
             <button
-              onClick={handleSend}
+              onClick={() => handleSend()}
               disabled={isLoading || !input.trim()}
               className="bg-[#2B9EB3] hover:bg-[#1E6A8C] text-white px-6 py-2 rounded-lg font-semibold flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
             >
