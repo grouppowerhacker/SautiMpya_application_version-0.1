@@ -56,7 +56,7 @@ export function Chat() {
   };
 
   return (
-    <div className="max-w-4xl mx-auto px-3 sm:px-4 py-3 sm:py-4 md:py-8 h-[85vh] md:h-[calc(100vh-100px)]">
+    <div className="max-w-4xl mx-auto px-3 sm:px-4 py-3 sm:py-4 md:py-8 h-[calc(100dvh-80px)] md:h-[calc(100vh-100px)]">
       <div className="bg-white rounded-lg shadow-lg overflow-hidden flex flex-col h-full">
         <div className="bg-gradient-to-r from-[#2B9EB3] to-[#1E6A8C] text-white p-3 sm:p-4 md:p-6 flex-shrink-0">
           <h1 className="text-xl sm:text-2xl md:text-3xl font-bold mb-1 md:mb-2">Confidential Support Chat</h1>
