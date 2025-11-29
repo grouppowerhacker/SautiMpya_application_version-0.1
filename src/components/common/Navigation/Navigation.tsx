@@ -1,6 +1,6 @@
 import { Link, useLocation } from 'react-router-dom';
 import { MessageCircle, ClipboardCheck, Shield, Book, Info, AlertTriangle } from 'lucide-react';
-import { useEmergency } from '../../../hooks/';
+import { useEmergency } from '@hooks/useEmergency';
 
 export function Navigation() {
   const location = useLocation();
