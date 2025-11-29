@@ -105,25 +105,6 @@ export function Home() {
                 <p className="text-gray-600 text-center text-sm leading-relaxed">
                   {action.description}
                 </p>
-              </Link>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Emergency Contacts */}
-      <section className="py-12 md:py-16 bg-gray-50">
-        <div className="max-w-7xl mx-auto px-4">
-          <EmergencyContacts />
-        </div>
-      </section>
-
-      {/* Quick Risk Assessment */}
-      <section className="py-12 md:py-16 bg-white">
-        <div className="max-w-4xl mx-auto px-4">
-          <RiskAssessment />
-        </div>
-      </section>
 
       {/* Safety Message */}
       <section className="py-12 md:py-16 bg-gradient-to-r from-[#2B9EB3] to-[#1E6A8C] text-white">
