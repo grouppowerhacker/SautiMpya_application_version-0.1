@@ -10,6 +10,7 @@ export function Login() {
   const [username, setUsername] = useState('');
   const [isSignUp, setIsSignUp] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [showEmailSent, setShowEmailSent] = useState(false);
   const navigate = useNavigate();
 
   const handleAuth = async (e: React.FormEvent) => {
@@ -29,7 +30,7 @@ export function Login() {
           },
         });
         if (error) throw error;
-        alert('Check your email for the confirmation link!');
+        setShowEmailSent(true);
       } else {
         const { error } = await supabase.auth.signInWithPassword({
           email,
@@ -46,6 +47,31 @@ export function Login() {
       setLoading(false);
     }
   };
+
+  if (showEmailSent) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-[#1E6A8C] to-[#2B9EB3] flex items-center justify-center p-4">
+        <div className="bg-white rounded-2xl shadow-2xl w-full max-w-md p-8 text-center">
+          <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
+            <Shield className="text-green-600" size={32} />
+          </div>
+          <h2 className="text-2xl font-bold text-gray-800 mb-4">Check Your Email</h2>
+          <p className="text-gray-600 mb-8">
+            We've sent a confirmation link to <strong>{email}</strong>. Please click the link to verify your account and log in.
+          </p>
+          <button
+            onClick={() => {
+              setShowEmailSent(false);
+              setIsSignUp(false);
+            }}
+            className="w-full bg-[#1E6A8C] hover:bg-[#155270] text-white font-bold py-3 rounded-lg transition-all"
+          >
+            Back to Login
+          </button>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-[#1E6A8C] to-[#2B9EB3] flex items-center justify-center p-4">
