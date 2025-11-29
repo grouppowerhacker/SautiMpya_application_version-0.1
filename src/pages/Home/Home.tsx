@@ -47,15 +47,15 @@ export function Home() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
       {/* Hero Section */}
-      <section className="relative bg-gradient-to-r from-[#1E6A8C] via-[#2B9EB3] to-[#1E6A8C] text-white py-20">
+      <section className="relative bg-gradient-to-r from-[#1E6A8C] via-[#2B9EB3] to-[#1E6A8C] text-white py-12 md:py-20">
         <div className="max-w-7xl mx-auto px-4 text-center">
-          <h1 className="text-5xl md:text-6xl font-bold mb-6" style={{ fontFamily: "'Nunito Sans', sans-serif" }}>
+          <h1 className="text-4xl md:text-6xl font-bold mb-4 md:mb-6" style={{ fontFamily: "'Nunito Sans', sans-serif" }}>
             Welcome, {displayName}
           </h1>
-          <p className="text-2xl md:text-3xl text-[#FFD700] mb-4 font-semibold">
+          <p className="text-xl md:text-3xl text-[#FFD700] mb-4 font-semibold">
             New Voice. New Beginning.
           </p>
-          <p className="text-xl max-w-3xl mx-auto leading-relaxed mb-8 opacity-90">
+          <p className="text-lg md:text-xl max-w-3xl mx-auto leading-relaxed mb-8 opacity-90">
             A safe, confidential space for anyone experiencing relationship concerns or abuse.
             You are not alone. Help is available across Africa.
           </p>
@@ -78,13 +78,13 @@ export function Home() {
       </section>
 
       {/* Quick Actions */}
-      <section className="py-16 bg-white">
+      <section className="py-12 md:py-16 bg-white">
         <div className="max-w-7xl mx-auto px-4">
-          <div className="text-center mb-12">
+          <div className="text-center mb-8 md:mb-12">
             <h2 className="text-3xl md:text-4xl font-bold text-[#1E6A8C] mb-4">
               How We Can Help
             </h2>
-            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+            <p className="text-lg md:text-xl text-gray-600 max-w-2xl mx-auto">
               Choose the support that's right for you. All services are completely confidential.
             </p>
           </div>
@@ -112,30 +112,30 @@ export function Home() {
       </section>
 
       {/* Emergency Contacts */}
-      <section className="py-16 bg-gray-50">
+      <section className="py-12 md:py-16 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4">
           <EmergencyContacts />
         </div>
       </section>
 
       {/* Quick Risk Assessment */}
-      <section className="py-16 bg-white">
+      <section className="py-12 md:py-16 bg-white">
         <div className="max-w-4xl mx-auto px-4">
           <RiskAssessment />
         </div>
       </section>
 
       {/* Safety Message */}
-      <section className="py-16 bg-gradient-to-r from-[#2B9EB3] to-[#1E6A8C] text-white">
+      <section className="py-12 md:py-16 bg-gradient-to-r from-[#2B9EB3] to-[#1E6A8C] text-white">
         <div className="max-w-4xl mx-auto px-4 text-center">
-          <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 border border-white/20">
+          <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 md:p-8 border border-white/20">
             <div className="flex items-center justify-center gap-4 mb-6">
-              <Heart size={48} className="text-[#FFD700]" />
-              <Users size={48} className="text-[#FFD700]" />
-              <Phone size={48} className="text-[#FFD700]" />
+              <Heart size={32} className="text-[#FFD700] md:w-12 md:h-12" />
+              <Users size={32} className="text-[#FFD700] md:w-12 md:h-12" />
+              <Phone size={32} className="text-[#FFD700] md:w-12 md:h-12" />
             </div>
-            <h3 className="text-3xl font-bold mb-4">You Are Not Alone</h3>
-            <p className="text-xl leading-relaxed mb-6 opacity-90">
+            <h3 className="text-2xl md:text-3xl font-bold mb-4">You Are Not Alone</h3>
+            <p className="text-lg md:text-xl leading-relaxed mb-6 opacity-90">
               Whether you're experiencing emotional abuse, physical violence, controlling behavior,
               or just feeling uncertain about your relationship, this is a judgment-free space
               designed to help you.

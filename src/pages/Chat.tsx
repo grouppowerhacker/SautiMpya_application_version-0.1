@@ -56,46 +56,46 @@ export function Chat() {
   };
 
   return (
-    <div className="max-w-4xl mx-auto px-4 py-8">
-      <div className="bg-white rounded-lg shadow-lg overflow-hidden">
-        <div className="bg-gradient-to-r from-[#2B9EB3] to-[#1E6A8C] text-white p-6">
-          <h1 className="text-3xl font-bold mb-2">Confidential Support Chat</h1>
-          <p className="text-blue-100">Safe, anonymous, judgment-free space</p>
+    <div className="max-w-4xl mx-auto px-4 py-4 md:py-8 h-[calc(100vh-80px)]">
+      <div className="bg-white rounded-lg shadow-lg overflow-hidden flex flex-col h-full">
+        <div className="bg-gradient-to-r from-[#2B9EB3] to-[#1E6A8C] text-white p-4 md:p-6 flex-shrink-0">
+          <h1 className="text-2xl md:text-3xl font-bold mb-1 md:mb-2">Confidential Support Chat</h1>
+          <p className="text-blue-100 text-sm md:text-base">Safe, anonymous, judgment-free space</p>
         </div>
 
-        <div className="h-[500px] overflow-y-auto p-6 space-y-4">
+        <div className="flex-1 overflow-y-auto p-4 md:p-6 space-y-4">
           {messages.map((message, index) => (
             <div
               key={index}
-              className={`flex gap-3 ${message.role === 'user' ? 'justify-end' : 'justify-start'}`}
+              className={`flex gap-2 md:gap-3 ${message.role === 'user' ? 'justify-end' : 'justify-start'}`}
             >
               {message.role === 'assistant' && (
-                <div className="bg-[#2B9EB3] rounded-full p-2 h-10 w-10 flex-shrink-0">
-                  <Bot size={24} className="text-white" />
+                <div className="bg-[#2B9EB3] rounded-full p-2 h-8 w-8 md:h-10 md:w-10 flex-shrink-0 flex items-center justify-center">
+                  <Bot size={20} className="text-white md:w-6 md:h-6" />
                 </div>
               )}
               <div
-                className={`max-w-[75%] rounded-lg p-4 ${
+                className={`max-w-[85%] md:max-w-[75%] rounded-lg p-3 md:p-4 ${
                   message.role === 'user'
                     ? 'bg-[#FF6B35] text-white'
                     : 'bg-gray-100 text-gray-800'
                 }`}
               >
-                <p className="leading-relaxed whitespace-pre-wrap">{message.content}</p>
+                <p className="leading-relaxed whitespace-pre-wrap text-sm md:text-base">{message.content}</p>
               </div>
               {message.role === 'user' && (
-                <div className="bg-[#FF6B35] rounded-full p-2 h-10 w-10 flex-shrink-0">
-                  <User size={24} className="text-white" />
+                <div className="bg-[#FF6B35] rounded-full p-2 h-8 w-8 md:h-10 md:w-10 flex-shrink-0 flex items-center justify-center">
+                  <User size={20} className="text-white md:w-6 md:h-6" />
                 </div>
               )}
             </div>
           ))}
           {isLoading && (
-            <div className="flex gap-3 justify-start">
-              <div className="bg-[#2B9EB3] rounded-full p-2 h-10 w-10 flex-shrink-0">
-                <Bot size={24} className="text-white" />
+            <div className="flex gap-2 md:gap-3 justify-start">
+              <div className="bg-[#2B9EB3] rounded-full p-2 h-8 w-8 md:h-10 md:w-10 flex-shrink-0 flex items-center justify-center">
+                <Bot size={20} className="text-white md:w-6 md:h-6" />
               </div>
-              <div className="bg-gray-100 rounded-lg p-4">
+              <div className="bg-gray-100 rounded-lg p-3 md:p-4">
                 <div className="flex gap-1">
                   <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"></div>
                   <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>
@@ -107,7 +107,7 @@ export function Chat() {
           <div ref={messagesEndRef} />
         </div>
 
-        <div className="border-t p-4">
+        <div className="border-t p-3 md:p-4 bg-white flex-shrink-0">
           <div className="flex gap-2 items-end">
             <VoiceRecorder
               onTranscription={handleVoiceTranscription}
@@ -118,16 +118,16 @@ export function Chat() {
               value={input}
               onChange={(e) => setInput(e.target.value)}
               onKeyPress={(e) => e.key === 'Enter' && !isLoading && handleSend()}
-              placeholder="Type your message here..."
-              className="flex-1 border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#2B9EB3]"
+              placeholder="Type your message..."
+              className="flex-1 border border-gray-300 rounded-lg px-3 py-2 md:px-4 focus:outline-none focus:ring-2 focus:ring-[#2B9EB3] text-sm md:text-base"
             />
             <button
               onClick={() => handleSend()}
               disabled={isLoading || !input.trim()}
-              className="bg-[#2B9EB3] hover:bg-[#1E6A8C] text-white px-6 py-2 rounded-lg font-semibold flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+              className="bg-[#2B9EB3] hover:bg-[#1E6A8C] text-white px-4 md:px-6 py-2 rounded-lg font-semibold flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed transition-colors text-sm md:text-base"
             >
-              <Send size={20} />
-              Send
+              <Send size={18} className="md:w-5 md:h-5" />
+              <span className="hidden sm:inline">Send</span>
             </button>
           </div>
         </div>
