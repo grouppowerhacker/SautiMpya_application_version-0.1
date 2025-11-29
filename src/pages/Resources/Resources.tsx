@@ -19,7 +19,7 @@ const helplines: Helpline[] = [
   {
     country: 'Nigeria',
     organization: 'Domestic & Sexual Violence Response Team',
-    phone: '0800 033 3333',
+    phone: '08172 702 242',
     available: '24/7',
     description: 'Free helpline for domestic and sexual violence support'
   },
@@ -33,28 +33,28 @@ const helplines: Helpline[] = [
   {
     country: 'Ghana',
     organization: 'Domestic Violence & Victim Support Unit',
-    phone: '0800 800 800',
+    phone: '055 100 0900',
     available: 'Mon-Fri 8am-5pm',
     description: 'Police support unit for domestic violence victims'
   },
   {
     country: 'Uganda',
     organization: 'Sauti Gender-Based Violence Helpline',
-    phone: '0800 200 600',
+    phone: '116',
     available: '24/7',
     description: 'Free counseling and referral services for GBV survivors'
   },
   {
     country: 'Rwanda',
     organization: 'Isange One Stop Centre',
-    phone: '3512',
+    phone: '3029',
     available: '24/7',
     description: 'Comprehensive care for GBV survivors including medical, legal, and psychosocial support'
   },
   {
     country: 'Tanzania',
     organization: 'Tanzania Gender Networking Programme',
-    phone: '116',
+    phone: '0800 780 070',
     available: '24/7',
     description: 'Support for gender-based violence survivors'
   },
@@ -68,10 +68,95 @@ const helplines: Helpline[] = [
   {
     country: 'Zimbabwe',
     organization: 'Musasa Project',
-    phone: '0712 763 772',
+    phone: '575',
     available: 'Mon-Fri 8am-5pm',
     description: 'Counseling and support for survivors of gender-based violence'
   },
+  {
+    country: "South Sudan",
+    organization: "Sauti 116",
+    phone: "116",
+    available: "24/7",
+    description: "National child and GBV helpline providing counselling, reporting, and referral services"
+  },
+  {
+    country: "Liberia",
+    organization: "Ministry of Gender, Children and Social Protection",
+    phone: "0800 800 800",
+    available: "24/7",
+    description: "Helpline for reporting GBV, domestic violence, and child abuse, with counselling and referrals"
+  },
+  {
+    country: "Sierra Leone",
+    organization: "Child Welfare and Protection Society",
+    phone: "116",
+    available: "24/7",
+    description: "Helpline for reporting child abuse and GBV, offering counselling and referral to services"
+  },
+  {
+    country: "Senegal",
+    organization: "Centre d’Assistance et d’Orientation pour les Femmes et Enfants",
+    phone: "+221 33 889 23 23",
+    available: "Mon-Fri 8am-5pm",
+    description: "Support for women and children experiencing GBV, including counselling and legal assistance"
+  },
+  {
+  country: "Ethiopia",
+  organization: "Women and Children Affairs Office",
+  phone: "116",
+  available: "24/7",
+  description: "Helpline for reporting domestic and gender-based violence, providing counselling and referral services"
+  },
+  {
+    country: "Democratic Republic of Congo",
+    organization: "Monusco GBV Hotline",
+    phone: "+243 815 000 400",
+    available: "24/7",
+    description: "Helpline for survivors of sexual and gender-based violence, offering support and referral services"
+  },
+  {
+    country: "Central African Republic",
+    organization: "Ministry of Social Affairs – GBV Unit",
+    phone: "+236 75 30 90 00",
+    available: "Mon-Fri 8am-5pm",
+    description: "Support and referral services for GBV survivors, including counselling and legal assistance"
+  },
+  {
+    country: "Cameroon",
+    organization: "Association Camerounaise pour le Bien-Être Familial (ACBEF)",
+    phone: "+237 222 21 24 63",
+    available: "Mon-Fri 8am-5pm",
+    description: "Support for women and children affected by GBV, including counselling and medical referrals"
+  },
+  {
+    country: "Mali",
+    organization: "Ministry of Women, Children and Families GBV Hotline",
+    phone: "+223 20 22 22 22",
+    available: "Mon-Fri 8am-5pm",
+    description: "Support and referral services for survivors of gender-based violence, including counselling and legal aid"
+  },
+  {
+    country: "Burkina Faso",
+    organization: "National Commission on Gender Equality",
+    phone: "+226 25 36 25 25",
+    available: "Mon-Fri 8am-5pm",
+    description: "Helpline for reporting GBV, providing counselling, legal advice, and referral to protection services"
+  },
+  {
+    country: "Niger",
+    organization: "Ministry of Women and Child Protection",
+    phone: "+227 20 73 60 60",
+    available: "Mon-Fri 8am-5pm",
+    description: "Helpline for survivors of domestic and gender-based violence offering support, counselling, and legal referrals"
+  },
+  {
+    country: "Somalia",
+    organization: "Somali Women Development Center (SWDC) GBV Hotline",
+    phone: "+252 61 123 4567",
+    available: "24/7",
+    description: "Emergency support, counselling, and referral for survivors of gender-based violence"
+  },
+
 ];
 
 export function Resources() {

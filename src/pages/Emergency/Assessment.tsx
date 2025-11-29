@@ -231,21 +231,19 @@ export function Assessment() {
               <div className="flex gap-4">
                 <button
                   onClick={() => handleAnswer(question.id, true)}
-                  className={`flex-1 py-3 px-6 rounded-lg font-semibold transition-colors ${
-                    answers[question.id] === true
+                  className={`flex-1 py-3 px-6 rounded-lg font-semibold transition-colors ${answers[question.id] === true
                       ? 'bg-red-600 text-white'
                       : 'bg-white border-2 border-gray-300 text-gray-700 hover:border-red-600'
-                  }`}
+                    }`}
                 >
                   Yes
                 </button>
                 <button
                   onClick={() => handleAnswer(question.id, false)}
-                  className={`flex-1 py-3 px-6 rounded-lg font-semibold transition-colors ${
-                    answers[question.id] === false
+                  className={`flex-1 py-3 px-6 rounded-lg font-semibold transition-colors ${answers[question.id] === false
                       ? 'bg-green-600 text-white'
                       : 'bg-white border-2 border-gray-300 text-gray-700 hover:border-green-600'
-                  }`}
+                    }`}
                 >
                   No
                 </button>
@@ -258,11 +256,10 @@ export function Assessment() {
           <button
             onClick={handleSubmit}
             disabled={!allAnswered || isAnalyzing}
-            className={`py-4 px-12 rounded-lg font-bold text-lg transition-colors flex items-center gap-2 ${
-              allAnswered && !isAnalyzing
+            className={`py-4 px-12 rounded-lg font-bold text-lg transition-colors flex items-center gap-2 ${allAnswered && !isAnalyzing
                 ? 'bg-[#2B9EB3] hover:bg-[#1E6A8C] text-white cursor-pointer'
                 : 'bg-gray-300 text-gray-500 cursor-not-allowed'
-            }`}
+              }`}
           >
             {isAnalyzing && <Loader2 size={24} className="animate-spin" />}
             {isAnalyzing
