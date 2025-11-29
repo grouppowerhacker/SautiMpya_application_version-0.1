@@ -1,6 +1,8 @@
 import { useState } from 'react';
-import { AlertTriangle, CheckCircle, AlertCircle } from 'lucide-react';
+import { AlertTriangle, CheckCircle, AlertCircle, Loader2 } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { analyzeAssessment } from '../services/groqService';
+import type { AssessmentAnswer, AssessmentAnalysis } from '../types/groq';
 
 interface Question {
   id: number;
@@ -22,6 +24,8 @@ const questions: Question[] = [
 export function Assessment() {
   const [answers, setAnswers] = useState<Record<number, boolean>>({});
   const [showResult, setShowResult] = useState(false);
+  const [isAnalyzing, setIsAnalyzing] = useState(false);
+  const [aiAnalysis, setAiAnalysis] = useState<AssessmentAnalysis | null>(null);
 
   const handleAnswer = (questionId: number, answer: boolean) => {
     setAnswers(prev => ({ ...prev, [questionId]: answer }));
@@ -37,25 +41,65 @@ export function Assessment() {
     return totalScore;
   };
 
-  const getRiskLevel = (score: number) => {
-    if (score >= 10) return { level: 'High Risk', color: 'red', bgColor: 'bg-red-100', textColor: 'text-red-800', borderColor: 'border-red-500' };
-    if (score >= 5) return { level: 'Moderate Risk', color: 'amber', bgColor: 'bg-amber-100', textColor: 'text-amber-800', borderColor: 'border-amber-500' };
+  const getRiskLevel = (score: number): 'low' | 'medium' | 'high' => {
+    if (score >= 10) return 'high';
+    if (score >= 5) return 'medium';
+    return 'low';
+  };
+
+  const getRiskDisplay = (level: 'low' | 'medium' | 'high') => {
+    if (level === 'high') return { level: 'High Risk', color: 'red', bgColor: 'bg-red-100', textColor: 'text-red-800', borderColor: 'border-red-500' };
+    if (level === 'medium') return { level: 'Moderate Risk', color: 'amber', bgColor: 'bg-amber-100', textColor: 'text-amber-800', borderColor: 'border-amber-500' };
     return { level: 'Low Risk', color: 'green', bgColor: 'bg-green-100', textColor: 'text-green-800', borderColor: 'border-green-500' };
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (Object.keys(answers).length === questions.length) {
-      setShowResult(true);
+      setIsAnalyzing(true);
+
+      const score = calculateScore();
+      const riskLevel = getRiskLevel(score);
+
+      // Prepare assessment data for AI analysis
+      const assessmentAnswers: AssessmentAnswer[] = questions.map(q => ({
+        questionId: q.id,
+        answer: answers[q.id] || false,
+        questionText: q.text,
+        weight: q.weight
+      }));
+
+      try {
+        const analysis = await analyzeAssessment(assessmentAnswers, score, riskLevel);
+        setAiAnalysis(analysis);
+      } catch (error) {
+        console.error('Assessment analysis error:', error);
+        // Set fallback analysis
+        setAiAnalysis({
+          riskLevel,
+          score,
+          insights: 'Your responses have been recorded. Please review the information below.',
+          recommendations: [
+            'Review the safety resources available on this platform',
+            'Consider creating a safety plan',
+            'Reach out to a local helpline for personalized support'
+          ]
+        });
+      } finally {
+        setIsAnalyzing(false);
+        setShowResult(true);
+      }
     }
   };
 
   const resetAssessment = () => {
     setAnswers({});
     setShowResult(false);
+    setAiAnalysis(null);
   };
 
   const score = calculateScore();
-  const risk = getRiskLevel(score);
+  const riskLevel = getRiskLevel(score);
+  const risk = getRiskDisplay(riskLevel);
   const allAnswered = Object.keys(answers).length === questions.length;
 
   if (showResult) {
@@ -77,8 +121,26 @@ export function Assessment() {
           </div>
 
           <div className={`${risk.bgColor} rounded-lg p-6 mb-6`}>
+            {aiAnalysis && (
+              <div className="mb-6">
+                <p className="text-lg font-semibold mb-3">AI Analysis</p>
+                <p className="mb-4 leading-relaxed">{aiAnalysis.insights}</p>
+
+                {aiAnalysis.recommendations.length > 0 && (
+                  <div>
+                    <p className="font-semibold mb-2">Personalized Recommendations:</p>
+                    <ul className="list-disc ml-6 space-y-2">
+                      {aiAnalysis.recommendations.map((rec, idx) => (
+                        <li key={idx}>{rec}</li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+              </div>
+            )}
+
             {risk.level === 'High Risk' && (
-              <div>
+              <div className="border-t pt-4 mt-4">
                 <p className="text-lg font-semibold mb-3">Your answers indicate you may be in a dangerous situation.</p>
                 <p className="mb-3">Please know:</p>
                 <ul className="list-disc ml-6 space-y-2">
@@ -98,7 +160,7 @@ export function Assessment() {
             )}
 
             {risk.level === 'Moderate Risk' && (
-              <div>
+              <div className="border-t pt-4 mt-4">
                 <p className="text-lg font-semibold mb-3">Your answers suggest some concerning patterns in your relationship.</p>
                 <p className="mb-3">What you're experiencing may be warning signs of abuse. Even if it hasn't escalated to physical violence, emotional abuse and controlling behavior are serious.</p>
                 <p className="mt-4 font-semibold">We recommend:</p>
@@ -113,7 +175,7 @@ export function Assessment() {
             )}
 
             {risk.level === 'Low Risk' && (
-              <div>
+              <div className="border-t pt-4 mt-4">
                 <p className="text-lg font-semibold mb-3">Your answers suggest your relationship doesn't show major signs of abuse at this time.</p>
                 <p className="mb-3">However, if you're concerned about your relationship or feeling uneasy, trust those feelings. You know your situation best.</p>
                 <p className="mt-4">Remember:</p>
@@ -195,14 +257,20 @@ export function Assessment() {
         <div className="mt-8 flex justify-center">
           <button
             onClick={handleSubmit}
-            disabled={!allAnswered}
-            className={`py-4 px-12 rounded-lg font-bold text-lg transition-colors ${
-              allAnswered
+            disabled={!allAnswered || isAnalyzing}
+            className={`py-4 px-12 rounded-lg font-bold text-lg transition-colors flex items-center gap-2 ${
+              allAnswered && !isAnalyzing
                 ? 'bg-[#2B9EB3] hover:bg-[#1E6A8C] text-white cursor-pointer'
                 : 'bg-gray-300 text-gray-500 cursor-not-allowed'
             }`}
           >
-            {allAnswered ? 'See Results' : `Answer All Questions (${Object.keys(answers).length}/${questions.length})`}
+            {isAnalyzing && <Loader2 size={24} className="animate-spin" />}
+            {isAnalyzing
+              ? 'Analyzing...'
+              : allAnswered
+                ? 'See Results'
+                : `Answer All Questions (${Object.keys(answers).length}/${questions.length})`
+            }
           </button>
         </div>
       </div>
