@@ -20,7 +20,7 @@ export function Login() {
 
     try {
       if (isSignUp) {
-        const { error } = await supabase.auth.signUp({
+        const { data, error } = await supabase.auth.signUp({
           email,
           password,
           options: {
@@ -30,7 +30,15 @@ export function Login() {
           },
         });
         if (error) throw error;
-        setShowEmailSent(true);
+
+        // Check if email confirmation is required
+        if (data.user && data.session) {
+          // User is automatically logged in (email confirmation disabled)
+          navigate('/');
+        } else if (data.user && !data.session) {
+          // Email confirmation required
+          setShowEmailSent(true);
+        }
       } else {
         const { error } = await supabase.auth.signInWithPassword({
           email,
