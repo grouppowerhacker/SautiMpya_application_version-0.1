@@ -1,15 +1,14 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { MessageCircle, ClipboardCheck, Shield, Heart, Users, Phone, BookOpen } from 'lucide-react';
-<<<<<<< HEAD
 import { EmergencyContacts } from '@components/sections/emergency-contacts/EmergencyContacts';
 import { RiskAssessment } from '@components/sections/risk-assessment/RiskAssessment';
+import { useAuth } from '@contexts/AuthContext';
 
-=======
-import { EmergencyContacts } from '../../components/sections/emergency-contacts/EmergencyContacts';
-import RiskAssessment from "../../components/sections/risk-assessment/RiskAssessment";
->>>>>>> 7e99453b21389384d9d02f81939a84c0a25b7160
 export function Home() {
+  const { user } = useAuth();
+  const displayName = user?.user_metadata?.full_name || user?.email?.split('@')[0] || 'Friend';
+
   const quickActions = [
     {
       to: '/chat',
@@ -51,7 +50,7 @@ export function Home() {
       <section className="relative bg-gradient-to-r from-[#1E6A8C] via-[#2B9EB3] to-[#1E6A8C] text-white py-20">
         <div className="max-w-7xl mx-auto px-4 text-center">
           <h1 className="text-5xl md:text-6xl font-bold mb-6" style={{ fontFamily: "'Nunito Sans', sans-serif" }}>
-            Sauti Mpya
+            Welcome, {displayName}
           </h1>
           <p className="text-2xl md:text-3xl text-[#FFD700] mb-4 font-semibold">
             New Voice. New Beginning.
