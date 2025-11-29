@@ -104,23 +104,23 @@ export function Assessment() {
 
   if (showResult) {
     return (
-      <div className="max-w-4xl mx-auto px-4 py-8">
-        <div className={`bg-white rounded-lg shadow-lg p-8 border-l-4 ${risk.borderColor}`}>
-          <div className="flex items-center gap-4 mb-6">
+      <div className="max-w-4xl mx-auto px-3 sm:px-4 py-4 sm:py-6 md:py-8">
+        <div className={`bg-white rounded-lg shadow-lg p-4 sm:p-6 md:p-8 border-l-4 ${risk.borderColor}`}>
+          <div className="flex items-center gap-3 sm:gap-4 mb-4 sm:mb-6">
             {risk.level === 'High Risk' ? (
-              <AlertTriangle size={48} className="text-red-600" />
+              <AlertTriangle size={36} className="text-red-600 sm:w-12 sm:h-12" />
             ) : risk.level === 'Moderate Risk' ? (
-              <AlertCircle size={48} className="text-amber-600" />
+              <AlertCircle size={36} className="text-amber-600 sm:w-12 sm:h-12" />
             ) : (
-              <CheckCircle size={48} className="text-green-600" />
+              <CheckCircle size={36} className="text-green-600 sm:w-12 sm:h-12" />
             )}
             <div>
-              <h2 className="text-3xl font-bold text-[#1E6A8C]">Assessment Result</h2>
-              <p className={`text-2xl font-semibold ${risk.textColor}`}>{risk.level}</p>
+              <h2 className="text-2xl sm:text-3xl font-bold text-[#1E6A8C]">Assessment Result</h2>
+              <p className={`text-xl sm:text-2xl font-semibold ${risk.textColor}`}>{risk.level}</p>
             </div>
           </div>
 
-          <div className={`${risk.bgColor} rounded-lg p-6 mb-6`}>
+          <div className={`${risk.bgColor} rounded-lg p-4 sm:p-6 mb-4 sm:mb-6`}>
             {aiAnalysis && (
               <div className="mb-6">
                 <p className="text-lg font-semibold mb-3">AI Analysis</p>
@@ -189,7 +189,7 @@ export function Assessment() {
             )}
           </div>
 
-          <div className="flex flex-col sm:flex-row gap-4">
+          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
             <Link
               to="/safety-plan"
               className="flex-1 bg-[#2B9EB3] hover:bg-[#1E6A8C] text-white text-center py-3 px-6 rounded-lg font-semibold transition-colors"
@@ -215,23 +215,23 @@ export function Assessment() {
   }
 
   return (
-    <div className="max-w-4xl mx-auto px-4 py-8">
-      <div className="bg-white rounded-lg shadow-lg p-8">
-        <h1 className="text-3xl font-bold text-[#1E6A8C] mb-4">Safety Assessment</h1>
-        <p className="text-gray-700 mb-6">
+    <div className="max-w-4xl mx-auto px-3 sm:px-4 py-4 sm:py-6 md:py-8">
+      <div className="bg-white rounded-lg shadow-lg p-4 sm:p-6 md:p-8">
+        <h1 className="text-2xl sm:text-3xl font-bold text-[#1E6A8C] mb-3 sm:mb-4">Safety Assessment</h1>
+        <p className="text-sm sm:text-base text-gray-700 mb-4 sm:mb-6">
           This confidential assessment helps you understand your situation better. Answer honestly - no one will see your responses.
         </p>
 
-        <div className="space-y-6">
+        <div className="space-y-4 sm:space-y-6">
           {questions.map((question) => (
-            <div key={question.id} className="border-l-4 border-[#2B9EB3] bg-gray-50 rounded-lg p-6">
-              <p className="text-lg font-medium text-gray-800 mb-4">
+            <div key={question.id} className="border-l-4 border-[#2B9EB3] bg-gray-50 rounded-lg p-4 sm:p-6">
+              <p className="text-base sm:text-lg font-medium text-gray-800 mb-3 sm:mb-4">
                 {question.id}. {question.text}
               </p>
-              <div className="flex gap-4">
+              <div className="flex gap-3 sm:gap-4">
                 <button
                   onClick={() => handleAnswer(question.id, true)}
-                  className={`flex-1 py-3 px-6 rounded-lg font-semibold transition-colors ${answers[question.id] === true
+                  className={`flex-1 py-2.5 sm:py-3 px-4 sm:px-6 rounded-lg font-semibold text-sm sm:text-base transition-colors ${answers[question.id] === true
                       ? 'bg-red-600 text-white'
                       : 'bg-white border-2 border-gray-300 text-gray-700 hover:border-red-600'
                     }`}
@@ -240,7 +240,7 @@ export function Assessment() {
                 </button>
                 <button
                   onClick={() => handleAnswer(question.id, false)}
-                  className={`flex-1 py-3 px-6 rounded-lg font-semibold transition-colors ${answers[question.id] === false
+                  className={`flex-1 py-2.5 sm:py-3 px-4 sm:px-6 rounded-lg font-semibold text-sm sm:text-base transition-colors ${answers[question.id] === false
                       ? 'bg-green-600 text-white'
                       : 'bg-white border-2 border-gray-300 text-gray-700 hover:border-green-600'
                     }`}
@@ -252,11 +252,11 @@ export function Assessment() {
           ))}
         </div>
 
-        <div className="mt-8 flex justify-center">
+        <div className="mt-6 sm:mt-8 flex justify-center">
           <button
             onClick={handleSubmit}
             disabled={!allAnswered || isAnalyzing}
-            className={`py-4 px-12 rounded-lg font-bold text-lg transition-colors flex items-center gap-2 ${allAnswered && !isAnalyzing
+            className={`py-3 sm:py-4 px-8 sm:px-12 rounded-lg font-bold text-base sm:text-lg transition-colors flex items-center gap-2 ${allAnswered && !isAnalyzing
                 ? 'bg-[#2B9EB3] hover:bg-[#1E6A8C] text-white cursor-pointer'
                 : 'bg-gray-300 text-gray-500 cursor-not-allowed'
               }`}

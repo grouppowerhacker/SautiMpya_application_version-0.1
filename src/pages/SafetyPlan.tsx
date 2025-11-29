@@ -121,24 +121,24 @@ export function SafetyPlan() {
   };
 
   return (
-    <div className="max-w-4xl mx-auto px-4 py-8">
-      <div className="bg-white rounded-lg shadow-lg p-8">
-        <div className="flex flex-col md:flex-row md:items-center justify-between mb-6 gap-4">
+    <div className="max-w-4xl mx-auto px-3 sm:px-4 py-4 sm:py-6 md:py-8">
+      <div className="bg-white rounded-lg shadow-lg p-4 sm:p-6 md:p-8">
+        <div className="flex flex-col md:flex-row md:items-center justify-between mb-4 sm:mb-6 gap-3 sm:gap-4">
           <div>
-            <h1 className="text-3xl font-bold text-[#1E6A8C] mb-2">Personal Safety Plan</h1>
-            <p className="text-gray-700">Create a plan to keep yourself safe. Fill in as much as you can.</p>
+            <h1 className="text-2xl sm:text-3xl font-bold text-[#1E6A8C] mb-2">Personal Safety Plan</h1>
+            <p className="text-sm sm:text-base text-gray-700">Create a plan to keep yourself safe. Fill in as much as you can.</p>
           </div>
-          <div className="flex gap-2">
+          <div className="flex gap-2 flex-wrap">
             <button
               onClick={resetPlan}
-              className="bg-gray-100 hover:bg-gray-200 text-gray-700 px-4 py-3 rounded-lg font-semibold flex items-center gap-2 transition-colors"
+              className="bg-gray-100 hover:bg-gray-200 text-gray-700 px-3 sm:px-4 py-2 sm:py-3 rounded-lg font-semibold flex items-center gap-2 transition-colors text-sm sm:text-base"
             >
               <RefreshCw size={20} />
               Clear
             </button>
             <button
               onClick={downloadPDF}
-              className="bg-[#2B9EB3] hover:bg-[#1E6A8C] text-white px-6 py-3 rounded-lg font-semibold flex items-center gap-2 transition-colors"
+              className="bg-[#2B9EB3] hover:bg-[#1E6A8C] text-white px-4 sm:px-6 py-2 sm:py-3 rounded-lg font-semibold flex items-center gap-2 transition-colors text-sm sm:text-base"
             >
               <Download size={20} />
               Download PDF
@@ -147,11 +147,11 @@ export function SafetyPlan() {
         </div>
 
         {/* Privacy Notice */}
-        <div className="bg-blue-50 border-l-4 border-blue-500 p-4 mb-8 flex items-start gap-3">
-          <ShieldAlert className="text-blue-600 flex-shrink-0 mt-1" />
+        <div className="bg-blue-50 border-l-4 border-blue-500 p-3 sm:p-4 mb-6 sm:mb-8 flex items-start gap-2 sm:gap-3">
+          <ShieldAlert className="text-blue-600 flex-shrink-0 mt-1" size={20} />
           <div>
-            <p className="font-bold text-blue-900">Your Privacy is Our Priority</p>
-            <p className="text-blue-800 text-sm mt-1">
+            <p className="font-bold text-blue-900 text-sm sm:text-base">Your Privacy is Our Priority</p>
+            <p className="text-blue-800 text-xs sm:text-sm mt-1">
               We do not store any of the information you enter here.
               Your safety plan is generated only on your device.
               Once you leave or refresh this page, all data will be cleared permanently.
@@ -159,17 +159,17 @@ export function SafetyPlan() {
           </div>
         </div>
 
-        <div className="bg-amber-50 border-l-4 border-amber-500 p-4 mb-8">
-          <p className="text-amber-900">
+        <div className="bg-amber-50 border-l-4 border-amber-500 p-3 sm:p-4 mb-6 sm:mb-8">
+          <p className="text-amber-900 text-xs sm:text-sm">
             <strong>Important:</strong> Keep this plan in a safe place where your abuser cannot find it.
             Consider giving a copy to someone you trust.
           </p>
         </div>
 
-        <div className="space-y-8">
+        <div className="space-y-6 sm:space-y-8">
           {sections.map((section, sectionIndex) => (
-            <div key={sectionIndex} className="border-l-4 border-[#2B9EB3] bg-gray-50 rounded-lg p-6">
-              <h2 className="text-xl font-bold text-[#1E6A8C] mb-4">{section.title}</h2>
+            <div key={sectionIndex} className="border-l-4 border-[#2B9EB3] bg-gray-50 rounded-lg p-4 sm:p-6">
+              <h2 className="text-lg sm:text-xl font-bold text-[#1E6A8C] mb-3 sm:mb-4">{section.title}</h2>
               <div className="space-y-3">
                 {section.items.map((item, itemIndex) => (
                   <div key={itemIndex} className="flex gap-2">
@@ -178,7 +178,7 @@ export function SafetyPlan() {
                       value={item}
                       onChange={(e) => updateItem(sectionIndex, itemIndex, e.target.value)}
                       placeholder="Enter details..."
-                      className="flex-1 border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#2B9EB3]"
+                      className="flex-1 border border-gray-300 rounded-lg px-3 sm:px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#2B9EB3] text-sm sm:text-base"
                     />
                     {section.items.length > 1 && (
                       <button
@@ -192,7 +192,7 @@ export function SafetyPlan() {
                 ))}
                 <button
                   onClick={() => addItem(sectionIndex)}
-                  className="flex items-center gap-2 text-[#2B9EB3] hover:text-[#1E6A8C] font-semibold transition-colors"
+                  className="flex items-center gap-2 text-[#2B9EB3] hover:text-[#1E6A8C] font-semibold transition-colors text-sm sm:text-base"
                 >
                   <Plus size={20} />
                   Add another item
@@ -202,9 +202,9 @@ export function SafetyPlan() {
           ))}
         </div>
 
-        <div className="mt-8 bg-blue-50 border-l-4 border-blue-500 p-6 rounded-lg">
-          <h3 className="text-lg font-bold text-blue-900 mb-3">Additional Safety Tips:</h3>
-          <ul className="space-y-2 text-blue-900">
+        <div className="mt-6 sm:mt-8 bg-blue-50 border-l-4 border-blue-500 p-4 sm:p-6 rounded-lg">
+          <h3 className="text-base sm:text-lg font-bold text-blue-900 mb-3">Additional Safety Tips:</h3>
+          <ul className="space-y-2 text-blue-900 text-xs sm:text-sm">
             <li>• Keep your phone charged and with you at all times</li>
             <li>• Memorize important phone numbers</li>
             <li>• Have a bag packed with essentials ready to grab</li>
@@ -215,10 +215,10 @@ export function SafetyPlan() {
           </ul>
         </div>
 
-        <div className="mt-8 text-center">
+        <div className="mt-6 sm:mt-8 text-center">
           <button
             onClick={downloadPDF}
-            className="bg-[#FF6B35] hover:bg-[#e55a2b] text-white px-8 py-4 rounded-lg font-bold text-lg transition-colors inline-flex items-center gap-2"
+            className="bg-[#FF6B35] hover:bg-[#e55a2b] text-white px-6 sm:px-8 py-3 sm:py-4 rounded-lg font-bold text-base sm:text-lg transition-colors inline-flex items-center gap-2"
           >
             <Download size={24} />
             Download My Safety Plan

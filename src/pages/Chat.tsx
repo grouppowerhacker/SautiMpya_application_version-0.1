@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
-import { Send, Bot, User } from 'lucide-react';
+import { Send, Bot, User, Volume2 } from 'lucide-react';
 import { sendChatMessage } from '../services/groqService';
 import { VoiceRecorder } from '../components/VoiceRecorder';
 import type { Message } from '../types/groq';
@@ -56,80 +56,132 @@ export function Chat() {
   };
 
   return (
-    <div className="max-w-4xl mx-auto px-3 sm:px-4 py-3 sm:py-4 md:py-8 h-[calc(100dvh-80px)] md:h-[calc(100vh-100px)]">
-      <div className="bg-white rounded-lg shadow-lg overflow-hidden flex flex-col h-full">
-        <div className="bg-gradient-to-r from-[#2B9EB3] to-[#1E6A8C] text-white p-3 sm:p-4 md:p-6 flex-shrink-0">
-          <h1 className="text-xl sm:text-2xl md:text-3xl font-bold mb-1 md:mb-2">Confidential Support Chat</h1>
-          <p className="text-blue-100 text-xs sm:text-sm md:text-base">Safe, anonymous, judgment-free space</p>
-        </div>
-
-        <div className="flex-1 overflow-y-auto p-3 sm:p-4 md:p-6 space-y-3 sm:space-y-4">
-          {messages.map((message, index) => (
-            <div
-              key={index}
-              className={`flex gap-2 sm:gap-3 ${message.role === 'user' ? 'justify-end' : 'justify-start'}`}
-            >
-              {message.role === 'assistant' && (
-                <div className="bg-[#2B9EB3] rounded-full p-1.5 sm:p-2 h-7 w-7 sm:h-8 sm:w-8 md:h-10 md:w-10 flex-shrink-0 flex items-center justify-center">
-                  <Bot size={16} className="text-white sm:w-5 sm:h-5 md:w-6 md:h-6" />
-                </div>
-              )}
-              <div
-                className={`max-w-[80%] xs:max-w-[85%] sm:max-w-[75%] rounded-lg p-2.5 sm:p-3 md:p-4 ${
-                  message.role === 'user'
-                    ? 'bg-[#FF6B35] text-white'
-                    : 'bg-gray-100 text-gray-800'
-                }`}
-              >
-                <p className="leading-relaxed whitespace-pre-wrap text-xs sm:text-sm md:text-base">{message.content}</p>
-              </div>
-              {message.role === 'user' && (
-                <div className="bg-[#FF6B35] rounded-full p-1.5 sm:p-2 h-7 w-7 sm:h-8 sm:w-8 md:h-10 md:w-10 flex-shrink-0 flex items-center justify-center">
-                  <User size={16} className="text-white sm:w-5 sm:h-5 md:w-6 md:h-6" />
-                </div>
-              )}
+    <div className="flex flex-col h-screen bg-gradient-to-br from-gray-50 to-blue-50/30">
+      {/* Header - Inspired by DeepSeek */}
+      <div className="bg-white border-b border-gray-200 px-4 py-3 flex-shrink-0">
+        <div className="max-w-4xl mx-auto flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            <div className="bg-gradient-to-r from-[#2B9EB3] to-[#1E6A8C] rounded-lg p-2">
+              <Bot className="text-white w-5 h-5" />
             </div>
-          ))}
-          {isLoading && (
-            <div className="flex gap-2 sm:gap-3 justify-start">
-              <div className="bg-[#2B9EB3] rounded-full p-1.5 sm:p-2 h-7 w-7 sm:h-8 sm:w-8 md:h-10 md:w-10 flex-shrink-0 flex items-center justify-center">
-                <Bot size={16} className="text-white sm:w-5 sm:h-5 md:w-6 md:h-6" />
-              </div>
-              <div className="bg-gray-100 rounded-lg p-2.5 sm:p-3 md:p-4">
-                <div className="flex gap-1">
-                  <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-gray-400 rounded-full animate-bounce"></div>
-                  <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>
-                  <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
-                </div>
-              </div>
+            <div>
+              <h1 className="font-semibold text-gray-900 text-sm">Sauti Mpya Assistant</h1>
+              <p className="text-xs text-gray-500">Always here to listen and support</p>
             </div>
-          )}
-          <div ref={messagesEndRef} />
-        </div>
-
-        <div className="border-t p-2.5 sm:p-3 md:p-4 bg-white flex-shrink-0">
-          <div className="flex gap-2 items-end">
-            <VoiceRecorder
-              onTranscription={handleVoiceTranscription}
-              disabled={isLoading}
-            />
-            <input
-              type="text"
-              value={input}
-              onChange={(e) => setInput(e.target.value)}
-              onKeyPress={(e) => e.key === 'Enter' && !isLoading && handleSend()}
-              placeholder="Type your message..."
-              className="flex-1 border border-gray-300 rounded-lg px-2.5 sm:px-3 md:px-4 py-1.5 sm:py-2 focus:outline-none focus:ring-2 focus:ring-[#2B9EB3] text-xs sm:text-sm md:text-base"
-            />
-            <button
-              onClick={() => handleSend()}
-              disabled={isLoading || !input.trim()}
-              className="bg-[#2B9EB3] hover:bg-[#1E6A8C] text-white px-3 sm:px-4 md:px-6 py-1.5 sm:py-2 rounded-lg font-semibold flex items-center gap-1.5 sm:gap-2 disabled:opacity-50 disabled:cursor-not-allowed transition-colors text-xs sm:text-sm md:text-base"
-            >
-              <Send size={16} className="sm:w-4 sm:h-4 md:w-5 md:h-5" />
-              <span className="hidden xs:inline">Send</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <button className="p-2 hover:bg-gray-100 rounded-lg transition-colors">
+              <Volume2 className="w-4 h-4 text-gray-600" />
             </button>
           </div>
+        </div>
+      </div>
+
+      {/* Chat Container */}
+      <div className="flex-1 overflow-hidden px-4 py-4">
+        <div className="max-w-4xl mx-auto h-full flex flex-col">
+          {/* Messages Area */}
+          <div className="flex-1 overflow-y-auto rounded-xl bg-white/80 backdrop-blur-sm border border-gray-200/50 p-4 space-y-6">
+            {messages.map((message, index) => (
+              <div
+                key={index}
+                className={`flex gap-4 ${message.role === 'user' ? 'flex-row-reverse' : 'flex-row'}`}
+              >
+                {/* Avatar */}
+                <div className={`flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center ${
+                  message.role === 'user'
+                    ? 'bg-gradient-to-r from-[#FF6B35] to-[#e55a2b]'
+                    : 'bg-gradient-to-r from-[#2B9EB3] to-[#1E6A8C]'
+                }`}>
+                  {message.role === 'user' ? (
+                    <User className="w-4 h-4 text-white" />
+                  ) : (
+                    <Bot className="w-4 h-4 text-white" />
+                  )}
+                </div>
+
+                {/* Message Bubble */}
+                <div className={`max-w-[85%] lg:max-w-[70%] ${
+                  message.role === 'user'
+                    ? 'bg-gradient-to-r from-[#FF6B35] to-[#e55a2b] text-white'
+                    : 'bg-white text-gray-800 border border-gray-200 shadow-sm'
+                } rounded-2xl px-4 py-3`}>
+                  <div className="whitespace-pre-wrap leading-relaxed text-sm md:text-base">
+                    {message.content}
+                  </div>
+                </div>
+              </div>
+            ))}
+
+            {/* Loading Indicator */}
+            {isLoading && (
+              <div className="flex gap-4">
+                <div className="flex-shrink-0 w-8 h-8 rounded-full bg-gradient-to-r from-[#2B9EB3] to-[#1E6A8C] flex items-center justify-center">
+                  <Bot className="w-4 h-4 text-white" />
+                </div>
+                <div className="bg-white border border-gray-200 rounded-2xl px-4 py-3 shadow-sm">
+                  <div className="flex gap-1.5">
+                    <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"></div>
+                    <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>
+                    <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            <div ref={messagesEndRef} />
+          </div>
+
+          {/* Input Area */}
+          <div className="mt-4 bg-white rounded-xl border border-gray-200/50 p-4 shadow-sm">
+            <div className="flex gap-3 items-end">
+              <VoiceRecorder
+                onTranscription={handleVoiceTranscription}
+                disabled={isLoading}
+              />
+
+              <div className="flex-1 relative">
+                <input
+                  type="text"
+                  value={input}
+                  onChange={(e) => setInput(e.target.value)}
+                  onKeyPress={(e) => e.key === 'Enter' && !isLoading && handleSend()}
+                  placeholder="Share what's on your mind..."
+                  className="w-full border border-gray-300 rounded-xl px-4 py-3 pr-12 focus:outline-none focus:ring-2 focus:ring-[#2B9EB3] focus:border-transparent text-sm md:text-base bg-gray-50/50"
+                  disabled={isLoading}
+                />
+                <button
+                  onClick={() => handleSend()}
+                  disabled={isLoading || !input.trim()}
+                  className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-[#2B9EB3] hover:bg-[#1E6A8C] text-white p-2 rounded-lg disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200"
+                >
+                  <Send className="w-4 h-4" />
+                </button>
+              </div>
+            </div>
+
+            {/* Quick Tips */}
+            <div className="mt-3 flex flex-wrap gap-2 justify-center">
+              <span className="text-xs text-gray-500 px-3 py-1 bg-gray-100 rounded-full">
+                💬 Share freely - this is a safe space
+              </span>
+              <span className="text-xs text-gray-500 px-3 py-1 bg-gray-100 rounded-full">
+                🛡️ Your privacy is protected
+              </span>
+              <span className="text-xs text-gray-500 px-3 py-1 bg-gray-100 rounded-full">
+                ⚠️ Emergency? Call 1195
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Emergency Footer */}
+      <div className="bg-red-50 border-t border-red-200 px-4 py-3 flex-shrink-0">
+        <div className="max-w-4xl mx-auto text-center">
+          <p className="text-xs text-red-700 font-medium">
+            🚨 If you're in immediate danger, please call emergency services: <strong>1195</strong> (GBV Hotline) or <strong>999</strong> (Police)
+          </p>
         </div>
       </div>
     </div>

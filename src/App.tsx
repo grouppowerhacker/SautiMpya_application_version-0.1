@@ -1,7 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { Navigation } from '@components/common/Navigation';
-import { EmergencyBar } from '@components/common/EmergencyBar';
 import { Home } from '@pages/Home';
 import { About } from '@pages/About';
 import { Assessment, EmergencyResources } from '@pages/Emergency';
@@ -36,7 +35,6 @@ function ProtectedRoute({ children }: { children: React.ReactNode }) {
 function AppLayout({ children }: { children: React.ReactNode }) {
   return (
     <div className="App min-h-screen bg-gray-50">
-      <EmergencyBar />
       <Navigation />
       {children}
     </div>

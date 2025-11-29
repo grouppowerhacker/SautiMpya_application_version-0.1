@@ -61,90 +61,96 @@ export function Home() {
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
             <Link
-              to="/assessment"
-              className="bg-[#FF6B35] hover:bg-[#e55a2b] text-white px-8 py-4 rounded-lg font-bold text-lg transition-all transform hover:scale-105 shadow-lg"
+              to="/chat"
+              className="bg-[#FF6B35] hover:bg-[#e55a2b] text-white font-bold py-3 px-8 rounded-full transition-all duration-200 transform hover:scale-105 shadow-lg"
             >
-              Start Safety Check
+              Get Immediate Support
             </Link>
             <Link
               to="/resources"
-              className="bg-white text-[#1E6A8C] hover:bg-gray-100 px-8 py-4 rounded-lg font-bold text-lg transition-all transform hover:scale-105 shadow-lg"
+              className="border-2 border-white text-white hover:bg-white hover:text-[#1E6A8C] font-bold py-3 px-8 rounded-full transition-all duration-200"
             >
-              Find Help Now
+              Emergency Resources
             </Link>
           </div>
         </div>
       </section>
 
-      {/* Quick Actions */}
-      <section className="py-12 md:py-16 bg-white">
+      {/* Quick Actions Section */}
+      <section className="py-12 md:py-16">
         <div className="max-w-7xl mx-auto px-4">
-          <div className="text-center mb-8 md:mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-[#1E6A8C] mb-4">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
               How We Can Help
             </h2>
-            <p className="text-lg md:text-xl text-gray-600 max-w-2xl mx-auto">
+            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
               Choose the support that's right for you. All services are completely confidential.
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {quickActions.map((action, index) => (
-              <Link
-                key={index}
-                to={action.to}
-                className={`${action.bgColor} rounded-xl p-6 hover:shadow-xl transition-all transform hover:-translate-y-2 border-l-4 border-[#2B9EB3] group`}
-              >
-                <div className={`w-16 h-16 rounded-full bg-gradient-to-r ${action.color} flex items-center justify-center mb-4 mx-auto group-hover:scale-110 transition-transform`}>
-                  <action.icon size={28} className="text-white" />
-                </div>
-                <h3 className="text-xl font-bold text-[#1E6A8C] mb-3 text-center">
-                  {action.title}
-                </h3>
-                <p className="text-gray-600 text-center text-sm leading-relaxed">
-                  {action.description}
-                </p>
-              </Link>
-            ))}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {quickActions.map((action, index) => {
+              const Icon = action.icon;
+              return (
+                <Link
+                  key={index}
+                  to={action.to}
+                  className={`${action.bgColor} rounded-xl p-6 shadow-sm hover:shadow-md transition-all duration-200 transform hover:-translate-y-1 border border-gray-100`}
+                >
+                  <div className={`inline-flex p-3 rounded-lg bg-gradient-to-r ${action.color} mb-4`}>
+                    <Icon size={24} className="text-white" />
+                  </div>
+                  <h3 className="text-xl font-bold text-gray-900 mb-2">{action.title}</h3>
+                  <p className="text-gray-600">{action.description}</p>
+                </Link>
+              );
+            })}
           </div>
         </div>
       </section>
 
-      {/* Quick Risk Assessment */}
-      <section className="py-12 md:py-16 bg-white">
-        <div className="max-w-4xl mx-auto px-4">
+      {/* Risk Assessment Section */}
+      <section className="py-12 md:py-16 bg-gray-50">
+        <div className="max-w-7xl mx-auto px-4">
           <RiskAssessment />
         </div>
       </section>
 
-      {/* Safety Message */}
-      <section className="py-12 md:py-16 bg-gradient-to-r from-[#2B9EB3] to-[#1E6A8C] text-white">
-        <div className="max-w-4xl mx-auto px-4 text-center">
-          <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 md:p-8 border border-white/20">
-            <div className="flex items-center justify-center gap-4 mb-6">
-              <Heart size={32} className="text-[#FFD700] md:w-12 md:h-12" />
-              <Users size={32} className="text-[#FFD700] md:w-12 md:h-12" />
-              <Phone size={32} className="text-[#FFD700] md:w-12 md:h-12" />
-            </div>
-            <h3 className="text-2xl md:text-3xl font-bold mb-4">You Are Not Alone</h3>
-            <p className="text-lg md:text-xl leading-relaxed mb-6 opacity-90">
-              Whether you're experiencing emotional abuse, physical violence, controlling behavior,
-              or just feeling uncertain about your relationship, this is a judgment-free space
-              designed to help you.
+      {/* Features Section */}
+      <section className="py-12 md:py-16">
+        <div className="max-w-7xl mx-auto px-4">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+              Why Choose Sauti Mpya
+            </h2>
+            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+              We provide immediate, confidential support tailored to your needs.
             </p>
-            <div className="grid md:grid-cols-3 gap-6 text-left">
-              <div className="bg-white/10 p-4 rounded-lg">
-                <h4 className="font-bold text-[#FFD700] mb-2">100% Confidential</h4>
-                <p className="text-sm opacity-90">No personal information collected, no login required</p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="text-center">
+              <div className="bg-blue-100 p-4 rounded-full w-16 h-16 mx-auto mb-4 flex items-center justify-center">
+                <Heart size={32} className="text-[#2B9EB3]" />
               </div>
-              <div className="bg-white/10 p-4 rounded-lg">
-                <h4 className="font-bold text-[#FFD700] mb-2">Available 24/7</h4>
-                <p className="text-sm opacity-90">Access support whenever you need it</p>
+              <h3 className="text-xl font-bold text-gray-900 mb-2">Compassionate Support</h3>
+              <p className="text-gray-600">Our AI assistant provides empathetic, non-judgmental guidance</p>
+            </div>
+
+            <div className="text-center">
+              <div className="bg-green-100 p-4 rounded-full w-16 h-16 mx-auto mb-4 flex items-center justify-center">
+                <Shield size={32} className="text-[#10B981]" />
               </div>
-              <div className="bg-white/10 p-4 rounded-lg">
-                <h4 className="font-bold text-[#FFD700] mb-2">Pan-African Support</h4>
-                <p className="text-sm opacity-90">Resources for Kenya, Nigeria, South Africa, and more</p>
+              <h3 className="text-xl font-bold text-gray-900 mb-2">Complete Privacy</h3>
+              <p className="text-gray-600">Your conversations are confidential and secure</p>
+            </div>
+
+            <div className="text-center">
+              <div className="bg-orange-100 p-4 rounded-full w-16 h-16 mx-auto mb-4 flex items-center justify-center">
+                <Users size={32} className="text-[#FF6B35]" />
               </div>
+              <h3 className="text-xl font-bold text-gray-900 mb-2">24/7 Availability</h3>
+              <p className="text-gray-600">Access support whenever you need it</p>
             </div>
           </div>
         </div>

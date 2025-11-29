@@ -161,23 +161,23 @@ const helplines: Helpline[] = [
 
 export function Resources() {
   return (
-    <div className="max-w-6xl mx-auto px-4 py-8">
-      <div className="bg-white rounded-lg shadow-lg p-8 mb-8">
-        <h1 className="text-4xl font-bold text-[#1E6A8C] mb-4">Emergency Resources</h1>
-        <p className="text-lg text-gray-700 mb-6">
+    <div className="max-w-6xl mx-auto px-3 sm:px-4 py-4 sm:py-6 md:py-8">
+      <div className="bg-white rounded-lg shadow-lg p-4 sm:p-6 md:p-8 mb-6 sm:mb-8">
+        <h1 className="text-3xl sm:text-4xl font-bold text-[#1E6A8C] mb-3 sm:mb-4">Emergency Resources</h1>
+        <p className="text-base sm:text-lg text-gray-700 mb-4 sm:mb-6">
           Find support in your country. These helplines are staffed by trained professionals who understand what you're going through.
         </p>
 
-        <div className="bg-red-50 border-l-4 border-red-500 p-6 rounded-lg mb-8">
-          <div className="flex items-start gap-3">
-            <Phone size={24} className="text-red-600 flex-shrink-0 mt-1" />
+        <div className="bg-red-50 border-l-4 border-red-500 p-4 sm:p-6 rounded-lg mb-6 sm:mb-8">
+          <div className="flex items-start gap-2 sm:gap-3">
+            <Phone size={20} className="text-red-600 flex-shrink-0 mt-1 sm:w-6 sm:h-6" />
             <div>
-              <h3 className="text-xl font-bold text-red-900 mb-2">In Immediate Danger?</h3>
-              <p className="text-red-900 mb-3">
+              <h3 className="text-lg sm:text-xl font-bold text-red-900 mb-2">In Immediate Danger?</h3>
+              <p className="text-sm sm:text-base text-red-900 mb-2 sm:mb-3">
                 If you are in immediate danger, call your country's emergency services (police, ambulance)
                 or use the helpline numbers below. Get to safety first.
               </p>
-              <p className="text-red-900 font-semibold">
+              <p className="text-sm sm:text-base text-red-900 font-semibold">
                 Remember: The QUICK EXIT button (top right) will clear your history and take you to Google.
               </p>
             </div>
@@ -185,45 +185,45 @@ export function Resources() {
         </div>
       </div>
 
-      <div className="grid md:grid-cols-2 gap-6">
+      <div className="grid sm:grid-cols-2 gap-4 sm:gap-6">
         {helplines.map((helpline, index) => (
           <div
             key={index}
             className="bg-white rounded-lg shadow-lg overflow-hidden border-t-4 border-[#2B9EB3] hover:shadow-xl transition-shadow"
           >
-            <div className="bg-gradient-to-r from-[#2B9EB3] to-[#1E6A8C] text-white p-4">
-              <div className="flex items-center gap-2 mb-2">
-                <MapPin size={20} />
-                <h2 className="text-2xl font-bold">{helpline.country}</h2>
+            <div className="bg-gradient-to-r from-[#2B9EB3] to-[#1E6A8C] text-white p-3 sm:p-4">
+              <div className="flex items-center gap-2 mb-1 sm:mb-2">
+                <MapPin size={18} className="sm:w-5 sm:h-5" />
+                <h2 className="text-xl sm:text-2xl font-bold">{helpline.country}</h2>
               </div>
-              <p className="text-blue-100 font-semibold">{helpline.organization}</p>
+              <p className="text-blue-100 font-semibold text-sm sm:text-base">{helpline.organization}</p>
             </div>
 
-            <div className="p-6">
-              <div className="flex items-center gap-3 mb-4">
-                <div className="bg-[#FF6B35] p-3 rounded-full">
-                  <Phone size={24} className="text-white" />
+            <div className="p-4 sm:p-6">
+              <div className="flex items-center gap-2 sm:gap-3 mb-3 sm:mb-4">
+                <div className="bg-[#FF6B35] p-2 sm:p-3 rounded-full">
+                  <Phone size={20} className="text-white sm:w-6 sm:h-6" />
                 </div>
                 <div>
-                  <p className="text-3xl font-bold text-[#1E6A8C]">{helpline.phone}</p>
+                  <p className="text-2xl sm:text-3xl font-bold text-[#1E6A8C]">{helpline.phone}</p>
                   <p className="text-sm text-gray-600">{helpline.available}</p>
                 </div>
               </div>
 
-              <p className="text-gray-700 leading-relaxed">{helpline.description}</p>
+              <p className="text-sm sm:text-base text-gray-700 leading-relaxed">{helpline.description}</p>
             </div>
           </div>
         ))}
       </div>
 
-      <div className="mt-8 bg-white rounded-lg shadow-lg p-8">
-        <div className="flex items-start gap-4">
-          <div className="bg-pink-100 p-4 rounded-full flex-shrink-0">
-            <Heart size={32} className="text-[#FF6B35]" />
+      <div className="mt-6 sm:mt-8 bg-white rounded-lg shadow-lg p-4 sm:p-6 md:p-8">
+        <div className="flex items-start gap-3 sm:gap-4">
+          <div className="bg-pink-100 p-3 sm:p-4 rounded-full flex-shrink-0">
+            <Heart size={24} className="text-[#FF6B35] sm:w-8 sm:h-8" />
           </div>
           <div>
-            <h2 className="text-2xl font-bold text-[#1E6A8C] mb-4">What to Expect When You Call</h2>
-            <div className="space-y-3 text-gray-700">
+            <h2 className="text-xl sm:text-2xl font-bold text-[#1E6A8C] mb-3 sm:mb-4">What to Expect When You Call</h2>
+            <div className="space-y-2 sm:space-y-3 text-sm sm:text-base text-gray-700">
               <p>
                 <strong className="text-[#1E6A8C]">Confidential:</strong> Your call is private and confidential.
                 They won't share your information without your permission (unless you or someone else is in immediate danger).
@@ -245,12 +245,12 @@ export function Resources() {
         </div>
       </div>
 
-      <div className="mt-8 bg-gradient-to-r from-[#2B9EB3] to-[#1E6A8C] rounded-lg shadow-lg p-8 text-white">
-        <div className="flex items-center gap-3 mb-4">
-          <Globe size={32} />
-          <h2 className="text-2xl font-bold">International Resources</h2>
+      <div className="mt-6 sm:mt-8 bg-gradient-to-r from-[#2B9EB3] to-[#1E6A8C] rounded-lg shadow-lg p-4 sm:p-6 md:p-8 text-white">
+        <div className="flex items-center gap-2 sm:gap-3 mb-3 sm:mb-4">
+          <Globe size={24} className="sm:w-8 sm:h-8" />
+          <h2 className="text-xl sm:text-2xl font-bold">International Resources</h2>
         </div>
-        <p className="mb-4">
+        <p className="mb-3 sm:mb-4 text-sm sm:text-base">
           If your country isn't listed here, search online for "domestic violence helpline [your country]"
           or contact these international organizations:
         </p>
